@@ -157,14 +157,6 @@ if(@$_GET['token'] === $token) {
 		$reply = urlencode("#NSFW\n".$reply);
 		$callback = @file_get_contents("https://api.telegram.org/bot".$token."/sendMessage?parse_mode=markdown&chat_id=".$chat_id."&text=".$reply);
 		}
-	}
-	
-	/*定时删除	*/
-	if(isset($callback) && $chat_type !== "private") {
-		$callback = json_decode($callback,true);
-		$chat_id = $callback['result']['chat']['id'];
-		$message_id = $callback['result']['message_id'];
-		system("php bot_callback_cli.php -k ".$token." -c ".$chat_id." -m ".$message_id." >> /tmp/telegramBot.log &");
-	}
+	}	
 }
 ?>
